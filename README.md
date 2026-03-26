@@ -2,8 +2,11 @@
 
 DLL mods for the Cube World Alpha dedicated server.
 
-Requires the [Cube World Server Mod Launcher](https://github.com/coremaze/Cube-World-Server-Mod-Launcher)  
-Download it here: [prerelease2](https://github.com/coremaze/Cube-World-Server-Mod-Launcher/releases/tag/prerelease2)
+Requires the [Cube World Server Mod Launcher](https://github.com/coremaze/Cube-World-Server-Mod-Launcher) (Download it here: [prerelease2](https://github.com/coremaze/Cube-World-Server-Mod-Launcher/releases/tag/prerelease2))
+
+Go check the [Releases](https://github.com/Gapagapi1/Cube-World-Alpha-Mods/releases) page to download the mods (built automatically from tags).
+
+For a technical overview on what the mods do and how they achieve it, see the comments in the `.c` files.
 
 
 ## Mods
@@ -19,8 +22,8 @@ Download it here: [prerelease2](https://github.com/coremaze/Cube-World-Server-Mo
 
 ## Runtime files
 
-- `seed.cfg` — world seed
-- `port.cfg` — optional port override
+- `seed.cfg` — world seed override
+- `port.cfg` — port override
 - `shutdown.request` — one-shot clean shutdown trigger
 
 
@@ -32,6 +35,7 @@ Place the DLLs in the `Server_Mods` folder used by the mod loader.
 Server_Mods/
   Config.dll
   GracefulShutdown.dll
+  ...
 ````
 
 
