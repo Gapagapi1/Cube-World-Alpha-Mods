@@ -65,10 +65,12 @@
  *   - MSVC uses __fastcall
  *   - GCC (MinGW) uses __attribute__((fastcall))
  */
-#if defined(_MSC_VER)
-#  define FASTCALL __fastcall
-#else
-#  define FASTCALL __attribute__((fastcall))
+#ifndef FASTCALL
+#  if defined(_MSC_VER)
+#    define FASTCALL __fastcall
+#  else
+#    define FASTCALL __attribute__((fastcall))
+#  endif
 #endif
 
 
