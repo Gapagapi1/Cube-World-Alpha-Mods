@@ -30,15 +30,17 @@ jobs:
       - name: Build DLLs
         shell: msys2 {0}
         run: |
-          i686-w64-mingw32-gcc -shared -O2 -s -static-libgcc -o Config.dll cw-config.c -lws2_32
-          i686-w64-mingw32-gcc -shared -O2 -s -o GracefulShutdown.dll cw-graceful-shutdown.c
+          cd server
+          ./compile_all.sh
+          cd ../client
+          ./compile_all.sh
 
       - name: Prepare release files
         shell: msys2 {0}
         run: |
           mkdir -p dist
-          cp Config.dll dist/
-          cp GracefulShutdown.dll dist/
+          cp server/*.dll dist/
+          cp client/*.dll dist/
           cp README.md dist/
 
       - name: Upload workflow artifact
@@ -69,8 +71,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
-            dist/Config.dll \
-            dist/GracefulShutdown.dll \
+            dist/*.dll \
             dist/README.md \
             --repo "${{ github.repository }}" \
             --title "${GITHUB_REF_NAME}" \

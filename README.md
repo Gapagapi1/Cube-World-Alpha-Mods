@@ -2,55 +2,77 @@
 
 DLL mods for the Cube World Alpha dedicated server.
 
-Requires the [Cube World Server Mod Launcher](https://github.com/coremaze/Cube-World-Server-Mod-Launcher) (Download it here: [prerelease2](https://github.com/coremaze/Cube-World-Server-Mod-Launcher/releases/tag/prerelease2))
+Server mods require the [Cube World Server Mod Launcher](https://github.com/coremaze/Cube-World-Server-Mod-Launcher) (Download it here: [prerelease2](https://github.com/coremaze/Cube-World-Server-Mod-Launcher/releases/tag/prerelease2))
 
-Go check the [Releases](https://github.com/Gapagapi1/Cube-World-Alpha-Mods/releases) page to download the mods (built automatically from tags).
+Client mods require the [Cube World Mod Launcher](https://github.com/coremaze/Cube-World-Mod-Launcher/tree/v1.5) (Download it here: [v1.5](https://github.com/coremaze/Cube-World-Mod-Launcher/releases/tag/v1.5))
+
+Go check the [Releases](https://github.com/Gapagapi1/Cube-World-Alpha-Mods/releases) page to download the mods (built automatically from tags using Github workflows).
 
 For a technical overview on what the mods do and how they achieve it, see the comments in the `.c` files.
 
 
-## Mods
+## Server
 
-- **Config.dll**
+### Mods
+
+- **ServerConfig.dll**
   - uses `seed.cfg` instead of `server.cfg`
   - adds `port.cfg` to configure the listening port and falls back to port `12345` if `port.cfg` is missing or invalid
 
-- **GracefulShutdown.dll**
+- **ServerGracefulShutdown.dll**
   - keeps the normal manual shutdown with `q`
   - also allows clean shutdown by creating a `shutdown.request` file
 
-
-## Runtime files
+### Runtime files
 
 - `seed.cfg` — world seed override
 - `port.cfg` — port override
 - `shutdown.request` — one-shot clean shutdown trigger
 
-
-## Use
+### Use
 
 Place the DLLs in the `Server_Mods` folder used by the mod loader.
 
 ```text
 Server_Mods/
-  Config.dll
-  GracefulShutdown.dll
+  ServerConfig.dll
+  ServerGracefulShutdown.dll
+  ...
+````
+
+
+## Client
+
+### Mods
+
+- **ClientConfig.dll**
+  - adds `port.cfg` to configure the listening port and falls back to port `12345` if `port.cfg` is missing or invalid
+
+### Runtime files
+
+- `port.cfg` — port override
+
+### Use
+
+Place the DLLs in the `Mods` folder used by the mod loader.
+
+```text
+Mods/
+  ClientConfig.dll
   ...
 ````
 
 
 ## Build
 
-Build as 32-bit Windows DLLs with MinGW-w64.
-
-### Config.dll
+Build as 32-bit Windows DLLs with MinGW-w64 MINGW32.
 
 ```bash
-i686-w64-mingw32-gcc -shared -O2 -static-libgcc -o Config.dll cw-config.c -lws2_32
+# See this script for compiling specific server mods
+./server/compile_all.sh
 ```
 
-### GracefulShutdown.dll
-
 ```bash
-i686-w64-mingw32-gcc -shared -O2 -s -o GracefulShutdown.dll cw-graceful-shutdown.c
+# See this script for compiling specific client mods
+./client/compile_all.sh
 ```
